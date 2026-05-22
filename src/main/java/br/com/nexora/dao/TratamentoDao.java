@@ -28,6 +28,7 @@ public class TratamentoDao {
 
         stmt.execute();
         stmt.close();
+        minhaConexao.close();
 
         return "Informações inseridas com sucesso.";
     }
@@ -47,6 +48,7 @@ public class TratamentoDao {
             tratamento.setStatus(rs.getString(6));
             listaTratamentos.add(tratamento);
         }
+        minhaConexao.close();
         return listaTratamentos;
     }
 
@@ -70,6 +72,7 @@ public class TratamentoDao {
 
         rs.close();
         stmt.close();
+        minhaConexao.close();
 
         return tratamento;
     }
@@ -85,6 +88,7 @@ public class TratamentoDao {
 
         stmt.executeUpdate();
         stmt.close();
+        minhaConexao.close();
 
         return "Tratamento atualizado com sucesso!";
     }
@@ -95,6 +99,7 @@ public class TratamentoDao {
 
         stmt.execute();
         stmt.close();
+        minhaConexao.close();
 
         return  "Tratamento deletado com sucesso!";
     }

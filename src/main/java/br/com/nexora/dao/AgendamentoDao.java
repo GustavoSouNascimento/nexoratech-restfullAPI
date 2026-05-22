@@ -30,6 +30,7 @@ public class AgendamentoDao {
 
         stmt.execute();
         stmt.close();
+        minhaConexao.close();
 
         return "Informações inseridas com sucesso.";
     }
@@ -51,6 +52,7 @@ public class AgendamentoDao {
             agendamento.setObservacao(rs.getString(8));
             listaAgendamentos.add(agendamento);
         }
+        minhaConexao.close();
         return listaAgendamentos;
     }
 
@@ -76,7 +78,6 @@ public class AgendamentoDao {
 
         rs.close();
         stmt.close();
-
         return agendamento;
     }
 
@@ -93,6 +94,7 @@ public class AgendamentoDao {
 
         stmt.executeUpdate();
         stmt.close();
+        minhaConexao.close();
 
         return "Agendamento atualizado com sucesso!";
     }
@@ -103,6 +105,7 @@ public class AgendamentoDao {
 
         stmt.execute();
         stmt.close();
+        minhaConexao.close();
 
         return  "Agendamento deletado com sucesso!";
     }

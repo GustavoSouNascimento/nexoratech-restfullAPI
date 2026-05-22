@@ -31,6 +31,7 @@ public class PacienteDao {
 
         stmt.execute();
         stmt.close();
+        minhaConexao.close();
 
         return "Paciente inserido com sucesso.";
     }
@@ -52,6 +53,7 @@ public class PacienteDao {
             paciente.setStatus(rs.getString(8));
             listaPacientes.add(paciente);
         }
+        minhaConexao.close();
         return listaPacientes;
     }
 
@@ -77,6 +79,7 @@ public class PacienteDao {
 
         rs.close();
         stmt.close();
+        minhaConexao.close();
 
         return paciente;
     }
@@ -94,6 +97,7 @@ public class PacienteDao {
 
         stmt.executeUpdate();
         stmt.close();
+        minhaConexao.close();
 
         return "Paciente atualizado com sucesso!";
     }
@@ -104,6 +108,7 @@ public class PacienteDao {
 
         stmt.execute();
         stmt.close();
+        minhaConexao.close();
 
         return  "Paciente deletado com sucesso!";
     }

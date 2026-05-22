@@ -28,6 +28,7 @@ public class TriagemDao {
 
         stmt.execute();
         stmt.close();
+        minhaConexao.close();
 
         return "Triagem inserida com sucesso.";
     }
@@ -47,6 +48,7 @@ public class TriagemDao {
             triagem.setStatus(rs.getString(6));
             listaTriagems.add(triagem);
         }
+        minhaConexao.close();
         return listaTriagems;
     }
 
@@ -70,6 +72,7 @@ public class TriagemDao {
 
         rs.close();
         stmt.close();
+        minhaConexao.close();
 
         return triagem;
     }
@@ -85,6 +88,7 @@ public class TriagemDao {
 
         stmt.executeUpdate();
         stmt.close();
+        minhaConexao.close();
 
         return "Triagem atualizado com sucesso!";
     }
@@ -95,6 +99,7 @@ public class TriagemDao {
 
         stmt.execute();
         stmt.close();
+        minhaConexao.close();
 
         return  "Triagem deletado com sucesso!";
     }

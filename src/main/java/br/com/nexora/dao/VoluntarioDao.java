@@ -28,6 +28,7 @@ public class VoluntarioDao {
 
         stmt.execute();
         stmt.close();
+        minhaConexao.close();
 
         return "Voluntário inserido com sucesso.";
     }
@@ -47,6 +48,7 @@ public class VoluntarioDao {
             voluntario.setEmail(rs.getString(6));
             listaVoluntarios.add(voluntario);
         }
+        minhaConexao.close();
         return listaVoluntarios;
     }
 
@@ -70,6 +72,7 @@ public class VoluntarioDao {
 
         rs.close();
         stmt.close();
+        minhaConexao.close();
 
         return voluntario;
     }
@@ -85,6 +88,7 @@ public class VoluntarioDao {
 
         stmt.executeUpdate();
         stmt.close();
+        minhaConexao.close();
 
         return "Voluntario atualizado com sucesso!";
     }
@@ -95,6 +99,7 @@ public class VoluntarioDao {
 
         stmt.execute();
         stmt.close();
+        minhaConexao.close();
 
         return  "Voluntario deletado com sucesso!";
     }
