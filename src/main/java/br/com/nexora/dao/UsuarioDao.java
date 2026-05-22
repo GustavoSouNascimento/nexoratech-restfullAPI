@@ -1,7 +1,7 @@
 package br.com.nexora.dao;
 
 import br.com.nexora.conexoes.ConexaoFactory;
-import br.com.nexora.entities.Voluntario;
+import br.com.nexora.entities.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,97 +10,97 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoluntarioDao {
+public class UsuarioDao {
     public Connection minhaConexao;
 
-    public VoluntarioDao() throws SQLException, ClassNotFoundException {
+    public UsuarioDao() throws SQLException, ClassNotFoundException {
         this.minhaConexao = new ConexaoFactory().conexao();
     }
 
-    public String inserir(Voluntario voluntario) throws SQLException {
-        PreparedStatement stmt = minhaConexao.prepareStatement("Insert Into VOLUNTARIO values (?,?,?,?,?,?)");
-        stmt.setInt(1, voluntario.getId());
-        stmt.setString(2, voluntario.getNome());
-        stmt.setLong(3, voluntario.getCpf());
-        stmt.setString(4, voluntario.getCro());
-        stmt.setString(5, voluntario.getTelefone());
-        stmt.setString(6, voluntario.getEmail());
+    public String inserir(Usuario usuario) throws SQLException {
+        PreparedStatement stmt = minhaConexao.prepareStatement("Insert Into USUARIO_ADMIN values (?,?,?,?,?)");
+        stmt.setInt(1, usuario.getId());
+        stmt.setString(2, usuario.getNome());
+        stmt.setString(3, usuario.getEmail());
+        stmt.setString(4, usuario.getPerfil());
+        stmt.setString(5, usuario.getSenha());
 
         stmt.execute();
         stmt.close();
         minhaConexao.close();
 
-        return "Voluntário inserido com sucesso.";
+        return "Usuario inserido com sucesso.";
     }
 
-    public List<Voluntario> selecionar() throws SQLException {
-        List<Voluntario> listaVoluntarios = new ArrayList<Voluntario>();
-        PreparedStatement stmt = minhaConexao.prepareStatement("select * from VOLUNTARIO");
+    public List<Usuario> selecionar() throws SQLException {
+        List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+        PreparedStatement stmt = minhaConexao.prepareStatement
+                ("select * from USUARIO_ADMIN");
         ResultSet rs = stmt.executeQuery();
 
         while(rs.next()){
-            Voluntario voluntario = new Voluntario();
-            voluntario.setId(rs.getInt(1));
-            voluntario.setNome(rs.getString(2));
-            voluntario.setCpf(rs.getLong(3));
-            voluntario.setCro(rs.getString(4));
-            voluntario.setTelefone(rs.getString(5));
-            voluntario.setEmail(rs.getString(6));
-            listaVoluntarios.add(voluntario);
+            Usuario usuario = new Usuario();
+            usuario.setId(rs.getInt(1));
+            usuario.setNome(rs.getString(2));
+            usuario.setEmail(rs.getString(3));
+            usuario.setPerfil(rs.getString(4));
+            usuario.setSenha(rs.getString(5));
+            listaUsuarios.add(usuario);
         }
         minhaConexao.close();
-        return listaVoluntarios;
+        return listaUsuarios;
     }
 
-    public Voluntario buscarId(int id) throws SQLException {
-        Voluntario voluntario = null;
+    public Usuario buscarId(int id) throws SQLException {
+        Usuario usuario = null;
 
-        PreparedStatement stmt = minhaConexao.prepareStatement("SELECT * FROM VOLUNTARIO WHERE id_volun = ?");
+        PreparedStatement stmt = minhaConexao.prepareStatement(
+                "SELECT * FROM USUARIO_ADMIN WHERE id_user = ?"
+        );
         stmt.setInt(1, id);
 
         ResultSet rs = stmt.executeQuery();
 
         if (rs.next()) {
-            voluntario = new Voluntario();
-            voluntario.setId(rs.getInt(1));
-            voluntario.setNome(rs.getString(2));
-            voluntario.setCpf(rs.getLong(3));
-            voluntario.setCro(rs.getString(4));
-            voluntario.setTelefone(rs.getString(5));
-            voluntario.setEmail(rs.getString(6));
+            usuario = new Usuario();
+            usuario.setId(rs.getInt(1));
+            usuario.setNome(rs.getString(2));
+            usuario.setEmail(rs.getString(3));
+            usuario.setPerfil(rs.getString(4));
+            usuario.setSenha(rs.getString(5));
         }
 
         rs.close();
         stmt.close();
         minhaConexao.close();
 
-        return voluntario;
+        return usuario;
     }
 
-    public String atualizar(Voluntario voluntario) throws SQLException {
-        PreparedStatement stmt = minhaConexao.prepareStatement("Update VOLUNTARIO set nm_volun = ?, cpf_volun = ?, cro_volun = ?, telefone_volun = ?, email_volun = ? where id_volun = ?");
-        stmt.setString(1, voluntario.getNome());
-        stmt.setLong(2, voluntario.getCpf());
-        stmt.setString(3, voluntario.getCro());
-        stmt.setString(4, voluntario.getTelefone());
-        stmt.setString(5, voluntario.getEmail());
-        stmt.setInt(6, voluntario.getId());
+    public String atualizar(Usuario usuario) throws SQLException {
+        PreparedStatement stmt = minhaConexao.prepareStatement("Update USUARIO_ADMIN set nm_user = ?, email_user = ?, perfil_user = ?, senha_user = ? where id_user = ?");
+        stmt.setString(1, usuario.getNome());
+        stmt.setString(2, usuario.getEmail());
+        stmt.setString(3, usuario.getPerfil());
+        stmt.setString(4, usuario.getSenha());
+        stmt.setInt(5, usuario.getId());
 
         stmt.executeUpdate();
         stmt.close();
         minhaConexao.close();
 
-        return "Voluntario atualizado com sucesso!";
+        return "Usuario atualizado com sucesso!";
     }
 
     public String deletar(int id) throws SQLException {
-        PreparedStatement stmt = minhaConexao.prepareStatement("Delete from VOLUNTARIO where id_volun = ?");
+        PreparedStatement stmt = minhaConexao.prepareStatement("Delete from USUARIO_ADMIN where id_user = ?");
         stmt.setInt(1, id);
 
         stmt.execute();
         stmt.close();
         minhaConexao.close();
 
-        return  "Voluntario deletado com sucesso!";
+        return  "Usuario deletado com sucesso!";
     }
+
 }
